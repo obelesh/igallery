@@ -28,220 +28,190 @@ Publish the website in the given URL.
 ```
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Enhanced Image Gallery</title>
+    <title>NBA Photo Gallery</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        body 
+        {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: rebeccapurple;
             margin: 0;
             padding: 0;
-            background: url('pink bg.jpg') no-repeat center center fixed;
-            background-size: cover;
+        }
+
+        h1 
+        {
+            margin: 20px;
+            color: black;
+        }
+
+        .gallery 
+        {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .head {
-            text-align: center;
-            padding: 10px;
-            background: linear-gradient(90deg, #ff0080, #8000ff);
-            width: 100%;
-            height: 100px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .head h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            animation: fadeIn 1.5s ease;
-        }
-
-        .gal {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
-            padding: 20px;
-            margin: 20px 0 10px 0;
-            width: 90%;
-            max-width: 1200px;
+            margin: 20px;
         }
 
-        .gal-item {
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            border: 10px solid #ffffff;
-            margin-right: 40px;
-            border-radius: 20px;
-            transform: scale(1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gal-item img {
-            width: 100%;
-            height: 100%;
+        .gallery-image 
+        {
+            width: 200px;
+            height: 150px;
             object-fit: cover;
-            display: block;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .gal-item:hover {
+        .gallery-image:hover 
+        {
             transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .gal-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .gal-item:hover::after {
-            opacity: 1;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(90deg, #8000ff, #ff0080);
-            color: #ffffff;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            bottom: 0;
-        }
-
-        #lightbox {
+        .slider-container 
+        {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            animation: fadeIn 0.5s ease;
         }
 
-        #lightbox img {
+        #slider-image 
+        {
             max-width: 90%;
             max-height: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin: auto;
         }
 
-        #lightbox .close {
+        .close-btn 
+        {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff0080;
-            color: #fff;
-            border: none;
-            font-size: 2rem;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
             cursor: pointer;
-            border-radius: 50%;
-            padding: 5px 10px;
-            animation: pulse 1.5s infinite;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .prev-btn, .next-btn 
+        {
+            position: absolute;
+            top: 50%;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
+        .prev-btn 
+        {
+            left: 30px;
         }
+
+        .next-btn 
+        {
+            right: 30px;
+        }
+
+        .prev-btn:hover, .next-btn:hover, .close-btn:hover 
+        {
+            color: red;
+        }
+
+        footer 
+        {
+            text-align: center;
+            padding: 20px;
+            background-color: red;
+            color: white;
+        }
+
     </style>
-    <script>
-        function openLightbox(imageSrc) {
-            alert("")
-            document.getElementById('lbox-img').src = imageSrc;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
-    </script>
 </head>
-
 <body>
-
-    <div class="head">
-        <h1>Image Gallery</h1>
+    <h1>NBA Photo Gallery</h1>
+    <div class="gallery">
+        <img src="1.jpg" class="gallery-image" alt="Image 1" onclick="openSlider(0)">
+        <img src="2.jpg" class="gallery-image" alt="Image 2" onclick="openSlider(1)">
+        <img src="3.jpg" class="gallery-image" alt="Image 3" onclick="openSlider(2)">
+        <img src="4.jpg" class="gallery-image" alt="Image 4" onclick="openSlider(3)">
+        <img src="5.jpg" class="gallery-image" alt="Image 5" onclick="openSlider(4)">
+        <img src="6.jpg" class="gallery-image" alt="Image 6" onclick="openSlider(5)">
+        <img src="7.jpg" class="gallery-image" alt="Image 7" onclick="openSlider(6)">
+        <img src="8.jpeg" class="gallery-image" alt="Image 8" onclick="openSlider(7)">
     </div>
 
-    <div class="gal">
-        <div class="gal-item"
-            onclick="openLightbox('https://i.pinimg.com/736x/d3/8b/5e/d38b5e59a8cfadd11577671970cc4ada.jpg')">
-            <img src="https://i.pinimg.com/736x/d3/8b/5e/d38b5e59a8cfadd11577671970cc4ada.jpg" alt="Image 1">
-        </div>
-        <div class="gal-item"
-            onclick="openLightbox('https://wallpapers.com/images/hd/hrithik-roshan-stills-from-war-movie-aiopqx07qe40jov3.jpg')">
-            <img src="https://wallpapers.com/images/hd/hrithik-roshan-stills-from-war-movie-aiopqx07qe40jov3.jpg"
-                alt="Image 2">
-        </div>
-        <div class="gal-item"
-            onclick="openLightbox('https://cdna.pcpartpicker.com/static/forever/images/userbuild/417703.cbfc1f8b0cc40bb36ca50fd9f07e8ee5.jpg')">
-            <img src="https://cdna.pcpartpicker.com/static/forever/images/userbuild/417703.cbfc1f8b0cc40bb36ca50fd9f07e8ee5.jpg"
-                alt="Image 3">
-        </div>
-        <div class="gal-item"
-            onclick="openLightbox('https://i.pinimg.com/236x/51/4a/2e/514a2ea45a80dcd716f3a9db3cf6ff41.jpg')">
-            <img src="https://i.pinimg.com/236x/51/4a/2e/514a2ea45a80dcd716f3a9db3cf6ff41.jpg" alt="Image 4">
-        </div>
-        <div class="gal-item"
-            onclick="openLightbox('https://i.pinimg.com/originals/0e/fa/18/0efa18641d797eaa86594becd7c966ca.jpg')">
-            <img src="https://i.pinimg.com/originals/0e/fa/18/0efa18641d797eaa86594becd7c966ca.jpg" alt="Image 5">
-        </div>
+    <div id="slider" class="slider-container">
+        <span class="close-btn" onclick="closeSlider()">&times;</span>
+        <img id="slider-image" src="" alt="Slider Image">
+        <a class="prev-btn" onclick="changeImage(-1)">&#10094;</a>
+        <a class="next-btn" onclick="changeImage(1)">&#10095;</a>
     </div>
 
-    <div id="lightbox">
-        <button class="close" onclick="closeLightbox()">X</button>
-        <img src="" id="lbox-img" alt="Full Image">
-    </div>
+    <footer>
+        <p>MITRAN R (24006381)</p>
+    </footer> 
+    <script>
+        let currentIndex = 0;
+        const images = [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg",
+            "4.jpg",
+            "5.jpg",
+            "6.jpg",
+            "7.jpg",
+            "8.jpeg"
+        ];
 
-    <footer class = "foot">
-        <p><b>Designed by S Rajath (24900186)</b></p>
-    </footer>
+        function openSlider(index) 
+        {
+            currentIndex = index;
+            document.getElementById('slider-image').src = images[currentIndex];
+            document.getElementById('slider').style.display = 'flex';
+        }
 
+        function closeSlider() 
+        {
+            document.getElementById('slider').style.display = 'none';
+        }
+
+        function changeImage(step) 
+        {
+            currentIndex += step;
+
+            // Wrap around when reaching the start or end
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+
+            document.getElementById('slider-image').src = images[currentIndex];
+        }
+        
+    </script>
 </body>
-
 </html>
+
 
 ```
 
 ## OUTPUT:
-![Screenshot 2024-12-21 160814](https://github.com/user-attachments/assets/cc2d5401-54d6-4108-acd2-28a4e54e6649)
-![Screenshot 2024-12-21 160831](https://github.com/user-attachments/assets/3ee3e548-9090-424e-8d69-698585e3e0af)
-![Screenshot 2024-12-21 160845](https://github.com/user-attachments/assets/aa7faecb-f2b8-4b56-99b9-6c924d0acc10)
 
+![Screenshot 2024-12-21 213540](https://github.com/user-attachments/assets/2530cea4-4df8-4e99-91a9-13750d4b048c)
+![Screenshot 2024-12-21 211130](https://github.com/user-attachments/assets/9309698e-dc45-4f3c-9dcb-41d989835490)
+![Screenshot 2024-12-21 211145](https://github.com/user-attachments/assets/a1ab475a-2318-4531-9bd0-f947704d3903)
+![Screenshot 2024-12-21 211155](https://github.com/user-attachments/assets/59f4fc51-e04f-4202-90b4-e2c5dbce59f8)
+![Screenshot 2024-12-21 211204](https://github.com/user-attachments/assets/36364ead-d94e-46fb-864d-fcb5f239c45d)
+![Screenshot 2024-12-21 211223](https://github.com/user-attachments/assets/c7184377-d7df-4c20-8f83-dd9ce703dc17)
+![Screenshot 2024-12-21 211233](https://github.com/user-attachments/assets/92f6997a-5005-4906-89f1-742457171977)
+![Screenshot 2024-12-21 211242](https://github.com/user-attachments/assets/80df24e2-3a33-4f60-8c19-475ae3d400bc)
 
 ## RESULT:
 The program for designing an interactive image gallery using HTML, CSS and JavaScript is executed successfully.
